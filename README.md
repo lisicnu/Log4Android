@@ -113,15 +113,15 @@ LogManager.isDebug 此变量表示是否是测试模式, 测试模式会将日�
 
 ##配置文件style##
 
-microlog.rootLogger=rootLogger // 暂时未使用
-microlog.formatter=PatternFormatter
-microlog.formatter.PatternFormatter.pattern=%i %c %d [%P] %m %T
-microlog.appender=FileAppender
-microlog.appender.FileAppender.File=logs
-microlog.appender.FileAppender.Options=%a %f-yyyyMMdd %s-2
-microlog.level=DEBUG
-microlog.addDefaultLogger=false
-microlog.tag= // 暂时未使用.
+* microlog.rootLogger=rootLogger // 暂时未使用
+* microlog.formatter=PatternFormatter
+* microlog.formatter.PatternFormatter.pattern=%i %c %d [%P] %m %T
+* microlog.appender=FileAppender
+* microlog.appender.FileAppender.File=logs
+* microlog.appender.FileAppender.Options=%a %f-yyyyMMdd %s-2
+* microlog.level=DEBUG
+* microlog.addDefaultLogger=false
+* microlog.tag= // 暂时未使用.
 
 
 
