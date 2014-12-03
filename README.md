@@ -6,23 +6,28 @@ Log4Android 使用说明
 
 增加文件写入的支持, 包括文件名格式, 指定文件大小,  使用方式 和 log4j一样.
 
+
 ##使用说明##
 
 调用 以下函数初始化:
 LogManager.init(context);
 
-此变量表示是否是测试模式, 测试模式会将日志输出到logcat 窗口中, 不会写入到其他地方.
-LogManager.isDebug
+LogManager.isDebug 此变量表示是否是测试模式, 测试模式会将日志输出到logcat 窗口中, 不会写入到其他地方.
+
 
 使用代码:
-LogManager.i(String tag, Object msg);
-LogManager.i(String tag, Object msg);
-LogManager.i(String tag, Object msg);LogManager.i(String tag, Object msg);
+* LogManager.d(String tag, Object msg);
+* LogManager.v(String tag, Object msg);
+* LogManager.i(String tag, Object msg);
+* LogManager.w(String tag, Object msg);
+* LogManager.e(String tag, Object msg);
+* LogManager.fetal(String tag, Object msg);
 
 
 ##配置文件说明##
 
 {
+
  microlog.properties instructions.
 
  microlog.appender: 
