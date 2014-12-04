@@ -7,6 +7,14 @@ Log4Android 使用说明
 增加文件写入的支持, 包括文件名格式, 指定文件大小,  使用方式 和 log4j一样.
 
 
+使用混淆时, 加入以下语句:
+
+-keep class com.github.lisicnu.log4android.format.*
+-keep class com.github.lisicnu.log4android.appender.*
+
+配置文件, 参考 microlog.properties
+
+
 ##使用说明##
 
 调用 以下函数初始化:
