@@ -9,8 +9,8 @@ Log4Android 使用说明
 
 使用混淆时, 加入以下语句:
 
--keep class com.github.lisicnu.log4android.format.*
--keep class com.github.lisicnu.log4android.appender.*
+* -keep class com.github.lisicnu.log4android.format.*
+* -keep class com.github.lisicnu.log4android.appender.*
 
 配置文件, 参考 microlog.properties
 
