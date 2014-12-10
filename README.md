@@ -2,8 +2,12 @@ Log4Android 使用说明
 ===========
 
 工程已经发布到maven仓库
+
+
 使用方式:
+
 在dependencies 中加入: 
+
   compile 'com.github.lisicnu:log4android:1.0.0'
   
 
