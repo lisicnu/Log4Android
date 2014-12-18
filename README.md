@@ -1,6 +1,16 @@
 Log4Android 使用说明
 ===========
 
+工程已经发布到maven仓库
+
+
+使用方式:
+
+在dependencies 中加入: 
+
+  compile 'com.github.lisicnu:log4android:1.0.0'
+  
+
 ##说明##
  本工程基于 LOG4android 二次开发.
 
@@ -18,8 +28,8 @@ Log4Android 使用说明
 ##使用说明##
 
 调用 以下函数初始化:
-LogManager.init(context);
 
+LogManager.init(context);
 LogManager.isDebug 此变量表示是否是测试模式, 测试模式会将日志输出到logcat 窗口中, 不会写入到其他地方.
 
 
