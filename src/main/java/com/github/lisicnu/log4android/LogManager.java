@@ -1,5 +1,4 @@
 /**
- * @Title LogUtils.java
  * @Description: TODO
  * @author Eden lee
  * @date Apr 15, 2013
@@ -22,19 +21,9 @@ import com.github.lisicnu.log4android.config.Configurator;
  * <br/>
  * <br/>
  * <p/>
- * if {@link #isDebug} was settle to true. then the logs will be output to android logcat window.
- * <p/>
- * <br/>
- * <br/>
- * when publish the APK, suggest to set {@link #isDebug} to false.
  */
 public final class LogManager {
 
-    /**
-     * if set this to true, will flush logs to adb logcat windows, otherwise
-     * will depend on log4android's configuration file.
-     */
-    public static boolean isDebug = true;
     static Logger logger;
 
     public static void logMemoryInfo() {
@@ -113,11 +102,6 @@ public final class LogManager {
     private static void log(String tag, Object msg, int level) {
         if (msg == null)
             return;
-
-        if (isDebug) {
-            consoleLog(tag, msg, level);
-            return;
-        }
 
         if (logger != null) {
             Throwable p = null;

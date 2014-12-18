@@ -103,7 +103,7 @@ public class FileAppender extends AbstractAppender {
         final static String SUPPORT_PARA_FILE_APPEND = "%a"; // append file.
 
         void wrap(String wrapStr) {
-            if (wrapStr == null || wrapStr.isEmpty())
+            if (wrapStr == null || wrapStr.length() == 0)
                 return;
 
             wrapSize = DEFAULT_WRAP_SIZE;
@@ -121,7 +121,7 @@ public class FileAppender extends AbstractAppender {
                 String tmp = wrapStr.substring(idx, nextIdx);
                 if (tmp.startsWith(SUPPORT_PARA_FORMAT_DATE)) {
                     String tt = tmp.replace(SUPPORT_PARA_FORMAT_DATE, "").replace("-", "").trim();
-                    if (tt.isEmpty()) {
+                    if (tt.length() == 0) {
                         formatter = "yyyyMMddHHmmss";
                     } else {
                         formatter = tt;
@@ -444,7 +444,7 @@ public class FileAppender extends AbstractAppender {
     }
 
     private String getFormattedNameWithPlusIndex(File dir) {
-        if (fileName == null || fileName.isEmpty()) {
+        if (fileName == null || fileName.length() == 0) {
             fileName = getRandomStr(8);
         }
 
