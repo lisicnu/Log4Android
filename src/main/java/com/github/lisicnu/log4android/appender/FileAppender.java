@@ -65,11 +65,11 @@ public class FileAppender extends AbstractAppender {
      * TODO
      */
     class WrapFormatter {
-        final static long DEFAULT_WRAP_SIZE = 0;
+        final static long NO_WRAP = 0;
         /**
          * wrap file's size. in byte. default is 0, means not wrap.
          */
-        long wrapSize = DEFAULT_WRAP_SIZE;
+        long wrapSize = NO_WRAP;
 
         /**
          * file name formatter, only usefull when {@link #nameFormat}'s value is
@@ -106,7 +106,7 @@ public class FileAppender extends AbstractAppender {
             if (wrapStr == null || wrapStr.length() == 0)
                 return;
 
-            wrapSize = DEFAULT_WRAP_SIZE;
+            wrapSize = NO_WRAP;
             nameFormat = NAME_FORMAT_NONE;
 
             int idx = wrapStr.indexOf(PARA_CHAR);
@@ -122,7 +122,7 @@ public class FileAppender extends AbstractAppender {
                 if (tmp.startsWith(SUPPORT_PARA_FORMAT_DATE)) {
                     String tt = tmp.replace(SUPPORT_PARA_FORMAT_DATE, "").replace("-", "").trim();
                     if (tt.length() == 0) {
-                        formatter = "yyyyMMddHHmmss";
+                        formatter = "yyyyMMdd";
                     } else {
                         formatter = tt;
                     }
@@ -197,7 +197,7 @@ public class FileAppender extends AbstractAppender {
             }
         }
 
-        Log.v(TAG, mLogFile.getAbsolutePath());
+        Log.v(TAG, logFile.getAbsolutePath());
 
         FileOutputStream fileOutputStream = new FileOutputStream(logFile, wraper.appendFile);
 
@@ -233,7 +233,7 @@ public class FileAppender extends AbstractAppender {
             }
 
             if (wraper != null && wraper.isWrapFile()
-                    && wraper.wrapSize != WrapFormatter.DEFAULT_WRAP_SIZE
+                    && wraper.wrapSize != WrapFormatter.NO_WRAP
                     && mLogFile.length() > wraper.wrapSize) {
                 try {
                     close();
@@ -459,7 +459,9 @@ public class FileAppender extends AbstractAppender {
 
             for (File tmp : files) {
                 if (tmp.getAbsolutePath().endsWith(file)) {
-                    continue;
+
+                    if (!(wraper.wrapSize != WrapFormatter.NO_WRAP
+                            && tmp.length() >= wraper.wrapSize)) break;
                 }
             }
 
@@ -475,36 +477,33 @@ public class FileAppender extends AbstractAppender {
         String tmp = getTimeFileName();
         // less than zero means do not append index. otherwise plus index.
         int plusIndex = 0;
-        if (wraper.wrapSize == WrapFormatter.DEFAULT_WRAP_SIZE) {
-            plusIndex = -1;
-        }
 
         File file;
         if (fileName == null || fileName.isEmpty()) {
-            if (plusIndex < 0) {
+            if (wraper.wrapSize <= WrapFormatter.NO_WRAP) {
                 return tmp.concat(DEFUALT_FILE_EXT);
             }
-            String t;
 
+            String t;
             do {
-                t = tmp + FILE_APPEND_CHAR + (++plusIndex) + DEFUALT_FILE_EXT;
+                t = tmp + FILE_APPEND_CHAR + (plusIndex++) + DEFUALT_FILE_EXT;
                 file = new File(dir, t);
-            } while (file.exists());
+            } while (file.exists() && (file.length() >= wraper.wrapSize && wraper.wrapSize !=
+                    WrapFormatter.NO_WRAP));
 
             return t;
         }
 
         tmp = getFileNameWithoutExtension(fileName) + tmp;
-        if (plusIndex < 0) {
-            String t;
-            do {
-                t = tmp + FILE_APPEND_CHAR + (++plusIndex) + DEFUALT_FILE_EXT;
-                file = new File(dir, t);
-            } while (file.exists());
+        String t;
+        do {
+            t = tmp + FILE_APPEND_CHAR + (plusIndex++) + DEFUALT_FILE_EXT;
+            file = new File(dir, t);
+        } while (file.exists() && (file.length() >= wraper.wrapSize && wraper.wrapSize !=
+                WrapFormatter.NO_WRAP));
 
-            tmp = t;
-        } else
-            tmp = tmp.concat(DEFUALT_FILE_EXT);
+        tmp = t;
+
         return tmp;
     }
 }
