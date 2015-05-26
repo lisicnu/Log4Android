@@ -8,7 +8,7 @@ Log4Android 使用说明
 
 在dependencies 中加入: 
 
-  compile 'com.github.lisicnu:log4android:1.0.0'
+  compile 'com.github.lisicnu:log4android:1.0.1'
   
 
 ##说明##
