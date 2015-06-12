@@ -187,6 +187,7 @@ public class FileAppender extends AbstractAppender {
     @Override
     public synchronized void open() throws IOException {
         File logFile = getLogFile();
+        if (logFile == null) return;
 
         Log.i(TAG, "log file:" + logFile.getAbsolutePath());
         logOpen = false;
@@ -197,13 +198,20 @@ public class FileAppender extends AbstractAppender {
             }
         }
 
-        Log.v(TAG, logFile.getAbsolutePath());
+        curLogFile = logFile.getAbsolutePath();
+        Log.v(TAG, curLogFile);
 
         FileOutputStream fileOutputStream = new FileOutputStream(logFile, wraper.appendFile);
 
         writer = new PrintWriter(fileOutputStream);
         writer.println("\r\n##########################################################\r\n");
         logOpen = true;
+    }
+
+    String curLogFile = "";
+
+    public String getCurLogFile() {
+        return curLogFile;
     }
 
     @Override
@@ -332,7 +340,7 @@ public class FileAppender extends AbstractAppender {
             return new File(file, getFileNameWithoutExtension(fileName));
         }
 
-        String tmp = "mnt/sdcard/";
+        String tmp = Environment.getExternalStorageDirectory().getPath();
         if (fileName.startsWith(tmp)) {
             file = new File(file, fileName.replace(tmp, ""));
             return file;
