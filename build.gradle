@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply from: file('../deploy_sonatype.gradle')
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
 
     defaultConfig {
         minSdkVersion 1
